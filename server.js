@@ -80,12 +80,13 @@ app.use('*', (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, 'localhost', () => {
+// Start server (bind to all interfaces for platforms like Render)
+app.listen(PORT, () => {
+  const host = process.env.RENDER ? '0.0.0.0' : 'localhost';
   console.log(`🚀 HealthConnect API server running on port ${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/health`);
+  console.log(`📊 Health check: http://${host}:${PORT}/health`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔗 Server accessible at: http://localhost:${PORT}`);
+  console.log(`🔗 Server accessible at: http://${host}:${PORT}`);
 }).on('error', (err) => {
   console.error('❌ Server failed to start:', err.message);
   if (err.code === 'EADDRINUSE') {
