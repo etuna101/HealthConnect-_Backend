@@ -12,7 +12,15 @@ const dbConfig = {
   connectionLimit: 10,
   queueLimit: 0,
   // Use supported option connectTimeout instead of unsupported acquireTimeout/timeout
-  connectTimeout: 60000
+  connectTimeout: 60000,
+  // Optional SSL for managed MySQL providers (set DB_SSL=true in env)
+  ...(process.env.DB_SSL === 'true'
+    ? {
+        ssl: {
+          rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== 'false'
+        }
+      }
+    : {})
 };
 
 // Create connection pool
