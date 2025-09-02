@@ -11,9 +11,8 @@ const dbConfig = {
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  acquireTimeout: 60000,
-  timeout: 60000,
-  reconnect: true
+  // Use supported option connectTimeout instead of unsupported acquireTimeout/timeout
+  connectTimeout: 60000
 };
 
 // Create connection pool
